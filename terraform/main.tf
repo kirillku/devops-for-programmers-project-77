@@ -106,3 +106,19 @@ resource "digitalocean_loadbalancer" "loadbalancer1" {
     digitalocean_droplet.web2.id
   ]
 }
+
+resource "local_file" "inventory" {
+  content = <<-EOT
+    [webservers]
+    ${digitalocean_droplet.web1.ipv4_address} server_name=web1 ansible_ssh_user=root
+    ${digitalocean_droplet.web2.ipv4_address} server_name=web2 ansible_ssh_user=root
+
+    [webservers:vars]
+    db_host="${digitalocean_database_cluster.dbc1.host}"
+    db_port="${digitalocean_database_cluster.dbc1.port}"
+    db_name="${digitalocean_database_cluster.dbc1.name}"
+    db_username="${digitalocean_database_cluster.dbc1.user}"
+    db_password="${digitalocean_database_cluster.dbc1.password}"
+  EOT
+  filename = "../ansible/inventory.ini"
+}
