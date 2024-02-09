@@ -13,7 +13,7 @@ terraform {
 }
 
 provider "ansiblevault" {
-  vault_path = ".vault_pass.txt"
+  vault_path = "../.vault_pass.txt"
   root_folder = "."
 }
 
