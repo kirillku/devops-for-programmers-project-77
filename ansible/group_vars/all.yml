@@ -8,3 +8,4 @@ datadog_checks:
       - name: Website
         url: "{{ app_url }}"
 datadog_site: datadoghq.eu
+upmon_url: "https://upmon.net/fc132890-af2d-49e8-babb-68d156d6bacb"
