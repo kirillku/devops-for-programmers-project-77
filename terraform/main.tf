@@ -4,15 +4,26 @@ terraform {
       source = "digitalocean/digitalocean"
       version = "~> 2.0"
     }
+
+    ansiblevault = {
+      source  = "MeilleursAgents/ansiblevault"
+      version = "~> 2.0"
+    }
   }
 }
 
-variable "do_token" {
-  sensitive = true
+provider "ansiblevault" {
+  vault_path = ".vault_pass.txt"
+  root_folder = "."
+}
+
+data "ansiblevault_path" "do_token" {
+  path = "./vault.yml"
+  key = "DO_TOKEN"
 }
 
 provider "digitalocean" {
-  token = var.do_token
+  token = data.ansiblevault_path.do_token.value
 }
 
 data "digitalocean_ssh_key" "ssh1" {
