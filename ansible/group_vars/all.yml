@@ -1,0 +1,10 @@
+app_url: http://kubryakov.online/
+app_port: "80"
+datadog_api_key: "{{ vault_dd_api_key }}"
+datadog_checks:
+  http:
+    init_config:
+    instances:
+      - name: Website
+        url: "{{ app_url }}"
+datadog_site: datadoghq.eu
