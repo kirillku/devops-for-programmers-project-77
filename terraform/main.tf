@@ -1,35 +1,3 @@
-terraform {
-  required_providers {
-    digitalocean = {
-      source = "digitalocean/digitalocean"
-      version = "~> 2.0"
-    }
-
-    ansiblevault = {
-      source  = "MeilleursAgents/ansiblevault"
-      version = "~> 2.0"
-    }
-  }
-}
-
-provider "ansiblevault" {
-  vault_path = "../.vault_pass.txt"
-  root_folder = "."
-}
-
-data "ansiblevault_path" "do_token" {
-  path = "./vault.yml"
-  key = "DO_TOKEN"
-}
-
-provider "digitalocean" {
-  token = data.ansiblevault_path.do_token.value
-}
-
-data "digitalocean_ssh_key" "ssh1" {
-  name = "kubry@KIRILL-LAPTOP"
-}
-
 resource "digitalocean_droplet" "web1" {
   name   = "web1"
   image  = "docker-20-04"
@@ -58,10 +26,6 @@ resource "digitalocean_database_cluster" "dbc1" {
   size       = "db-s-1vcpu-1gb"
   region     = "fra1"
   node_count = 1
-}
-
-variable "website" {
-  default = "kubryakov.online"
 }
 
 resource "digitalocean_domain" "domain1" {
