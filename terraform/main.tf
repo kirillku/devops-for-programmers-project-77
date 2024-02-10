@@ -116,7 +116,7 @@ resource "local_file" "inventory" {
     [webservers:vars]
     db_host="${digitalocean_database_cluster.dbc1.host}"
     db_port="${digitalocean_database_cluster.dbc1.port}"
-    db_name="${digitalocean_database_cluster.dbc1.name}"
+    db_name="${digitalocean_database_db.db1.name}"
     db_username="${digitalocean_database_cluster.dbc1.user}"
     db_password="${digitalocean_database_cluster.dbc1.password}"
   EOT
