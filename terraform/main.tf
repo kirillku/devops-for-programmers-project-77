@@ -1,16 +1,16 @@
 resource "digitalocean_droplet" "web1" {
-  name   = "web1"
-  image  = "docker-20-04"
-  region = "fra1"
-  size   = "s-1vcpu-1gb"
+  name     = "web1"
+  image    = "docker-20-04"
+  region   = "fra1"
+  size     = "s-1vcpu-1gb"
   ssh_keys = [data.digitalocean_ssh_key.ssh1.id]
 }
 
 resource "digitalocean_droplet" "web2" {
-  name   = "web2"
-  image  = "docker-20-04"
-  region = "fra1"
-  size   = "s-1vcpu-1gb"
+  name     = "web2"
+  image    = "docker-20-04"
+  region   = "fra1"
+  size     = "s-1vcpu-1gb"
   ssh_keys = [data.digitalocean_ssh_key.ssh1.id]
 }
 
@@ -46,8 +46,8 @@ resource "digitalocean_certificate" "cert1" {
 }
 
 resource "digitalocean_loadbalancer" "loadbalancer1" {
-  name   = "loadbalancer1"
-  region = "fra1"
+  name                   = "loadbalancer1"
+  region                 = "fra1"
   redirect_http_to_https = true
 
   forwarding_rule {
@@ -72,7 +72,7 @@ resource "digitalocean_loadbalancer" "loadbalancer1" {
 }
 
 resource "local_file" "inventory" {
-  content = <<-EOT
+  content  = <<-EOT
     [webservers]
     ${digitalocean_droplet.web1.ipv4_address} server_name=web1 ansible_ssh_user=root
     ${digitalocean_droplet.web2.ipv4_address} server_name=web2 ansible_ssh_user=root

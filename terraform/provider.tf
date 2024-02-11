@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     digitalocean = {
-      source = "digitalocean/digitalocean"
+      source  = "digitalocean/digitalocean"
       version = "~> 2.0"
     }
 
@@ -13,13 +13,13 @@ terraform {
 }
 
 provider "ansiblevault" {
-  vault_path = "../.vault_pass.txt"
+  vault_path  = "../.vault_pass.txt"
   root_folder = "."
 }
 
 data "ansiblevault_path" "do_token" {
   path = "./vault.yml"
-  key = "DO_TOKEN"
+  key  = "DO_TOKEN"
 }
 
 provider "digitalocean" {
