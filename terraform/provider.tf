@@ -14,12 +14,12 @@ terraform {
 
 provider "ansiblevault" {
   vault_path  = "../.vault_pass.txt"
-  root_folder = "."
+  root_folder = "../ansible"
 }
 
 data "ansiblevault_path" "do_token" {
-  path = "./vault.yml"
-  key  = "DO_TOKEN"
+  path = "./group_vars/vault.yml"
+  key  = "vault_do_token"
 }
 
 provider "digitalocean" {
