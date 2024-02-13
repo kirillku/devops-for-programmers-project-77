@@ -1,12 +1,15 @@
 init:
-	(cd terraform; make init)
-	(cd ansible; make init)
+	$(MAKE) init -C terraform
+	$(MAKE) init -C ansible
 
 apply:
-	(cd terraform; make apply)
+	$(MAKE) apply -C terraform
 
 deploy:
-	(cd ansible; make deploy)
+	$(MAKE) deploy -C ansible
 
 monitoring: 
-	(cd ansible; make monitoring)
+	$(MAKE) monitoring -C ansible
+
+destroy:
+	$(MAKE) destroy -C terraform
