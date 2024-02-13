@@ -14,13 +14,13 @@ resource "digitalocean_droplet" "web2" {
   ssh_keys = [data.digitalocean_ssh_key.ssh1.id]
 }
 
-resource "digitalocean_database_db" "db1" {
-  cluster_id = digitalocean_database_cluster.dbc1.id
-  name       = "db1"
+resource "digitalocean_database_db" "database1" {
+  cluster_id = digitalocean_database_cluster.cluster1.id
+  name       = "database1"
 }
 
-resource "digitalocean_database_cluster" "dbc1" {
-  name       = "dbc1"
+resource "digitalocean_database_cluster" "cluster1" {
+  name       = "cluster1"
   engine     = "pg"
   version    = "15"
   size       = "db-s-1vcpu-1gb"
@@ -78,11 +78,11 @@ resource "local_file" "inventory" {
     ${digitalocean_droplet.web2.ipv4_address} server_name=web2 ansible_ssh_user=root
 
     [webservers:vars]
-    db_host="${digitalocean_database_cluster.dbc1.host}"
-    db_port="${digitalocean_database_cluster.dbc1.port}"
-    db_name="${digitalocean_database_db.db1.name}"
-    db_username="${digitalocean_database_cluster.dbc1.user}"
-    db_password="${digitalocean_database_cluster.dbc1.password}"
+    db_host="${digitalocean_database_cluster.cluster1.host}"
+    db_port="${digitalocean_database_cluster.cluster1.port}"
+    db_name="${digitalocean_database_db.database1.name}"
+    db_username="${digitalocean_database_cluster.cluster1.user}"
+    db_password="${digitalocean_database_cluster.cluster1.password}"
   EOT
   filename = "../ansible/inventory.ini"
 }
